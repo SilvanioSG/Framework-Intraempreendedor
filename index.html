@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Intraempreendedor: Framework Completo | Pirâmide + OKRs + Mapa Estratégico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f9ff;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --primary: #27628d;
+            --primary-dark: #1c4b6e;
+            --primary-light: rgba(39,98,141,0.1);
+            --primary-soft: rgba(39,98,141,0.08);
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            --shadow-md: 0 12px 28px rgba(0,0,0,0.05);
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+        .site-header {
+            background: white;
+            border-bottom: 3px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            padding: 1.2rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .header-avatar img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+        }
+        .header-info { flex: 1; }
+        .header-info h1 { font-size: 1.6rem; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; }
+        .header-badge { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.25rem; }
+        .author-name {
+            font-weight: 600;
+            background: var(--primary-light);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .whatsapp-link {
+            text-decoration: none;
+            background: #25D36620;
+            color: #075e54;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            border: 1px solid #25D36630;
+            transition: 0.2s;
+        }
+        .whatsapp-link:hover { background: #25D36630; transform: translateY(-1px); }
+        main { padding: 2rem 0 3rem; }
+        .section {
+            background: white;
+            border-radius: 28px;
+            box-shadow: var(--shadow-md);
+            padding: 1.8rem 2rem;
+            margin-bottom: 2.5rem;
+            transition: transform 0.2s;
+        }
+        .section:hover { box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08); }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 1rem;
+        }
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .card-framework {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid #e7edf4;
+            transition: 0.2s;
+        }
+        .card-framework:hover { border-color: var(--primary); transform: translateY(-4px); }
+        .card-framework i { font-size: 2.2rem; color: var(--primary); margin-bottom: 0.8rem; }
+        .badge-pilar {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+        .list-dots { list-style: none; margin-top: 1rem; }
+        .list-dots li { margin-bottom: 0.6rem; padding-left: 1.4rem; position: relative; }
+        .list-dots li:before { content: "▹"; color: var(--primary); position: absolute; left: 0; font-weight: bold; }
+        .quote {
+            background: var(--primary-light);
+            padding: 1.2rem 1.8rem;
+            border-radius: 30px;
+            font-style: italic;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+        }
+        .pill-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f6fe;
+            border-radius: 100px;
+            padding: 0.3rem 1rem;
+        }
+        .pyramid-fiel { display: flex; flex-direction: column; align-items: center; margin: 2rem 0; }
+        .pyramid-layer { text-align: center; color: white; font-weight: 600; padding: 1.2rem 1rem; border-radius: 20px; box-shadow: 0 8px 14px rgba(0,0,0,0.1); }
+        .layer-proposito { background: var(--primary); width: 65%; max-width: 380px; margin-bottom: 0.8rem; border-radius: 40px 40px 20px 20px; }
+        .layer-estrategia { background: #2c7ab1; width: 82%; max-width: 500px; margin-bottom: 0.8rem; }
+        .layer-execucao { background: #3c8dbd; width: 100%; max-width: 620px; }
+        .layer-title { font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+        .layer-desc { font-size: 0.85rem; font-weight: 400; background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 60px; display: inline-block; margin-top: 6px; }
+        @media (max-width: 640px) {
+            .layer-proposito { width: 80%; }
+            .layer-estrategia { width: 90%; }
+            .section { padding: 1.3rem; }
+            .section-title { font-size: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .pyramid-layer { width: 95% !important; }
+        }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        th, td { border: 1px solid #dce5ec; padding: 10px 12px; text-align: left; vertical-align: top; }
+        th { background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+        
+        /* ===== ESTILOS PARA TORNAR O DETAILS/SUMMARY MAIS ÓBVIO ===== */
+        details {
+            margin: 1.5rem 0;
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #e2edf7;
+            transition: all 0.2s;
+        }
+        details:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        summary {
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--primary);
+            background: var(--primary-soft);
+            padding: 1rem 1.5rem;
+            border-radius: 24px;
+            list-style: none; /* Remove o triângulo padrão em alguns navegadores */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+        summary::-webkit-details-marker {
+            display: none; /* Esconde o triângulo padrão do Chrome/Safari */
+        }
+        /* Ícone customizado (seta para baixo quando fechado, para cima quando aberto) */
+        summary::after {
+            content: "▼";
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-left: 0.5rem;
+        }
+        details[open] summary::after {
+            content: "▲";
+        }
+        summary:hover {
+            background: rgba(39,98,141,0.15);
+        }
+        /* Texto auxiliar "clique para expandir" */
+        .click-hint {
+            font-size: 0.7rem;
+            font-weight: normal;
+            background: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 40px;
+            color: var(--primary-dark);
+            margin-left: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        /* Conteúdo interno do details com padding */
+        details > div, details > .details-content {
+            padding: 1rem 1.5rem 1.5rem;
+            border-top: 1px solid #e2edf7;
+        }
+        /* ===== FIM DOS ESTILOS ===== */
+        
+        .btn-top {
+            position: fixed;
+            bottom: 28px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            z-index: 99;
+            border: none;
+        }
+        .btn-top.show { opacity: 0.85; visibility: visible; }
+        .btn-top:hover { opacity: 1; transform: scale(1.05); }
+        footer {
+            background: #fff;
+            border-top: 1px solid #e2edf7;
+            padding: 1.8rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .matrix-prioridade {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 16px;
+        }
+        .arrow-down { text-align: center; font-size: 1.5rem; margin: 0.2rem 0; color: var(--primary); }
+        .hipotese-card {
+            background: #fefce8;
+            border-left: 5px solid #eab308;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+        }
+        .ritual-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+        .ritual-day {
+            flex: 1;
+            background: #f0f6fe;
+            border-radius: 20px;
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <div class="header-avatar">
+            <img src="Gestão_SG.png" alt="Silvanio Gois" onerror="this.src='https://placehold.co/70x70?text=SG';">
+        </div>
+        <div class="header-info">
+            <h1> Framework Intraempreendedor<br><span style="font-size:0.9rem; font-weight:400;">Pirâmide Estratégica + OKRs + Mapa Estratégico para líderes</span></h1>
+            <div class="header-badge">
+                <span class="author-name"><i class="fas fa-user-astronaut"></i> Silvanio Gois</span>
+                <a href="https://wa.me/5513988301094" target="_blank" class="whatsapp-link" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Contato</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="container">
+    <div class="section">
+        <div class="quote"><i class="fas fa-quote-left"></i> “A estratégia não é consequência do planejamento, mas o oposto: é seu ponto de partida.” – <strong>Henry Mintzberg</strong></div>
+        <p style="font-size: 1.1rem;"><strong>Para o gestor intraempreendedor</strong>, este framework vai além da teoria: inclui perguntas disparadoras, OKRs práticos, mapa estratégico causal, armadilhas comuns e um roteiro condicional. Use no dia a dia com seu time.</p>
+    </div>
+
+    <!-- PIRÂMIDE VISUAL -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-chart-simple"></i> Pirâmide Estratégica: Propósito → Estratégia → Execução</div>
+        <div class="pyramid-fiel">
+            <div class="pyramid-layer layer-proposito">
+                <div class="layer-title"><i class="fas fa-bullseye"></i>  PROPÓSITO</div>
+                <div class="layer-desc"><strong>Missão:</strong> Por que existimos?<br><strong>Valores:</strong> O que é importante?<br><strong>Visão:</strong> O que queremos ser?</div>
+            </div>
+            <div class="pyramid-layer layer-estrategia">
+                <div class="layer-title"><i class="fas fa-brain"></i>  ESTRATÉGIA</div>
+                <div class="layer-desc"><strong>Intenção Estratégica:</strong> Como chegaremos?<br><strong>Direcionadores:</strong> Foco prioritário<br><strong>Facilitadores:</strong> Recursos e habilidades</div>
+            </div>
+            <div class="pyramid-layer layer-execucao">
+                <div class="layer-title"><i class="fas fa-play-circle"></i>  EXECUÇÃO</div>
+                <div class="layer-desc"><strong>Metas e Iniciativas:</strong> O que faremos?<br><strong>Indicadores:</strong> Como medimos?<br><strong>Mapa Estratégico:</strong> Teste e comunicação</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. PROPÓSITO -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-bullseye"></i> 1. PROPÓSITO · A Bússola Interna</div>
+        <p><strong>Perguntas para aplicar com seu time:</strong></p>
+        <ul class="list-dots">
+            <li>Se nossa área deixasse de existir amanhã, qual falta faria? (Missão)</li>
+            <li>Quais comportamentos diários são inegociáveis para nós? (Valores)</li>
+            <li>Qual é o futuro que queremos construir em 2-3 anos? (Visão)</li>
+            <li>Se tivéssemos apenas 4 horas por semana para avançar nossa missão, onde nos concentraríamos?</li>
+        </ul>
+        <div class="grid-cards">
+            <div class="card-framework"><i class="fas fa-flag-checkered"></i><div class="badge-pilar">MISSÃO</div><h3>Exemplo equipe de Suporte</h3><p>"Resolver 90% das solicitações internas sem necessidade de escalar para terceiros."</p><p style="margin-top: 0.5rem; font-size:0.85rem;"><strong>Exemplo Planejamento:</strong> "Entregar relatórios de desempenho semanal com 48h de antecedência das reuniões diretivas."</p></div>
+            <div class="card-framework"><i class="fas fa-heart"></i><div class="badge-pilar">VALORES</div><h3>O que é inegociável?</h3><p>Autonomia responsável, transparência radical, aprendizado contínuo.</p></div>
+            <div class="card-framework"><i class="fas fa-chart-line"></i><div class="badge-pilar">VISÃO</div><h3>O que queremos nos tornar?</h3><p>"Referência em inovação enxuta, reduzindo desperdícios em 40%."</p></div>
+        </div>
+    </div>
+
+    <!-- GLOSSÁRIO -->
+    <div class="section" id="glossario">
+        <div class="section-title"><i class="fas fa-book-open"></i> Glossário do Intraempreendedor</div>
+        <div class="grid-cards">
+            <div class="card-framework"><strong>Intraempreendedor</strong><br>Profissional que age como dono dentro da empresa, promovendo inovação.</div>
+            <div class="card-framework"><strong>Intenção Estratégica</strong><br>Declaração ambiciosa conectando propósito e metas de médio prazo.</div>
+            <div class="card-framework"><strong>Facilitadores</strong><br>Recursos, habilidades e ferramentas que aceleram a execução.</div>
+            <div class="card-framework"><strong>Mapa Estratégico</strong><br>Diagrama causa-efeito (aprendizado → processos → clientes → resultados).</div>
+            <div class="card-framework"><strong>OKR</strong><br>Objectives and Key Results – metas mensuráveis e ambiciosas.</div>
+            <div class="card-framework"><strong>Direcionadores</strong><br>Focos prioritários onde a área concentra esforços.</div>
+            <div class="card-framework"><strong>MVP</strong><br>Produto Mínimo Viável – versão mais simples que gera aprendizado.</div>
+            <div class="card-framework"><strong>Piloto</strong><br>Teste controlado em pequena escala antes de expandir.</div>
+            <div class="card-framework"><strong>Lead time</strong><br>Tempo total entre a solicitação e a entrega final.</div>
+            <div class="card-framework"><strong>ROI operacional</strong><br>Retorno sobre o investimento em horas/recursos.</div>
+            <div class="card-framework"><strong>Assunção crítica</strong><br>Crença não validada que, se falsa, inviabiliza a estratégia.</div>
+        </div>
+    </div>
+
+    <!-- 2. ESTRATÉGIA -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-brain"></i> 2. ESTRATÉGIA · A Rota do Intraempreendedor</div>
+        <div class="quote"><strong>Exemplo de Intenção Estratégica completa:</strong> “Reduzir o lead time médio de aprovação de contratos de 5 dias para 2 dias até junho, automatizando a validação de cláusulas padrão (75% dos casos) e criando um rito diário de 15min com jurídico.”</div>
+        <div class="matrix-prioridade">
+            <strong><i class="fas fa-filter"></i> Como priorizar direcionadores:</strong>
+            <ul class="list-dots" style="margin-top: 0.5rem;">
+                <li><strong>Alto impacto + fácil execução</strong> → comece hoje.</li>
+                <li><strong>Alto impacto + difícil execução</strong> → planeje um piloto de 2 semanas.</li>
+                <li><strong>Baixo impacto</strong> → descarte ou aguarde.</li>
+            </ul>
+        </div>
+        <div class="grid-cards">
+            <div class="card-framework"><i class="fas fa-map-signs"></i><div class="badge-pilar">DIRECIONADORES</div><h3>Em que nos concentraremos?</h3><ul class="list-dots"><li>Automação de processos repetitivos (prioridade alta/fácil)</li><li>Capacitação em análise de dados (alto/difícil → piloto 2 semanas)</li><li>Parcerias com outras áreas (médio impacto)</li></ul></div>
+            <div class="card-framework"><i class="fas fa-toolbox"></i><div class="badge-pilar">FACILITADORES</div><h3>Quais recursos/habilidades?</h3><p>Budget para ferramentas low-code, 2 horas semanais de experimentação, mentoria com liderança sênior.</p></div>
+        </div>
+    </div>
+
+    <!-- 3. EXECUÇÃO (com mapa estratégico visível) -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-play-circle"></i> 3. EXECUÇÃO · Ação e Monitoramento</div>
+        
+        <!-- Mapa Estratégico visível -->
+        <div style="margin: 1rem 0;">
+            <h3><i class="fas fa-map"></i> Mapa Estratégico com Causalidade</h3>
+            <div class="card-framework" style="background: #f9fbfd; margin-top: 0.5rem;">
+                <strong>① Aprendizado & Crescimento</strong><br>Capacitar equipe em análise de dados (meta: 80% com certificação básica)<br>
+                <div class="arrow-down"></div>
+                <strong>② Processos Internos</strong><br>Implantar revisão de métricas semanais de 30min (antes: quinzenal)<br>
+                <div class="arrow-down"></div>
+                <strong>③ Clientes / Áreas internas</strong><br>Aumentar NPS da área de 55 para 70 (foco em tempo de resposta)<br>
+                <div class="arrow-down"></div>
+                <strong>④ Resultados Financeiros/Impacto</strong><br>Gerar R$ 50k de economia anual por redução de retrabalho
+            </div>
+            <p class="pill-icon"><i class="fas fa-lightbulb"></i> Revise este mapa mensalmente com o time. Deixe-o visível no mural da equipe.</p>
+        </div>
+
+        <!-- OKRs sugeridos - agora com indicador visual claro de clique -->
+        <details>
+            <summary>
+                <span><i class="fas fa-chart-line"></i> OKRs sugeridos (KRs de resultado)</span>
+                <span class="click-hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span>
+            </summary>
+            <div>
+                <table>
+                    <thead><tr><th>Área</th><th>Objective (O)</th><th>Key Results (KRs) – mensuráveis e difíceis</th></tr></thead>
+                    <tbody>
+                        <tr><td>Operações</td><td>Reduzir desperdício de tempo em tarefas repetitivas</td><td>1. Diminuir lead time do pedido ao faturamento de 24h para 12h.<br>2. Eliminar 3 planilhas manuais de controle (migrar para dashboard automático).</td></tr>
+                        <tr><td>Produto/TI</td><td>Aumentar previsibilidade das entregas</td><td>1. Reduzir variação do ciclo de desenvolvimento (de ±50% para ±20%).<br>2. Zerar retrabalho por falta de critérios de aceite (definir DoD).</td></tr>
+                        <tr><td>Comercial</td><td>Acelerar conversão de leads qualificados</td><td>1. Encurtar tempo médio de follow-up de 48h para 6h úteis.<br>2. Atingir 40% de leads que avançam para proposta após reunião de descoberta.</td></tr>
+                        <tr><td>RH/Gente</td><td>Fortalecer cultura de intraempreendedorismo</td><td>1. 80% do time com plano de desenvolvimento individual.<br>2. Implantar programa de ideias inovadoras com 3 implementadas no semestre.</td></tr>
+                    </tbody>
+                </table>
+                <p class="pill-icon">Limite a 3 OKRs por trimestre. Use a regra “menos é mais”.</p>
+            </div>
+        </details>
+
+        <!-- Ritual semanal + Anti-OKR -->
+        <div style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-calendar-week"></i> Ritual Semanal (obrigatório para execução)</h3>
+            <div class="ritual-box">
+                <div class="ritual-day"><i class="fas fa-check-circle"></i> <strong>Segunda-feira, 15 min</strong><br>Atualizar OKRs: o que evoluiu? O que travou?</div>
+                <div class="ritual-day"><i class="fas fa-lightbulb"></i> <strong>Quinta-feira, 15 min</strong><br>Revisar uma hipótese em andamento (veja seção abaixo).</div>
+            </div>
+            <div class="matrix-prioridade">
+                <strong><i class="fas fa-ban"></i> Anti‑OKR (o que NÃO faremos neste trimestre):</strong>
+                <ul class="list-dots" style="margin-top: 0.5rem;">
+                    <li>Não vamos criar novos relatórios manuais sob demanda.</li>
+                    <li>Não vamos participar de reuniões sem pauta clara.</li>
+                    <li>Não vamos aceitar projetos que desviem o foco dos 3 OKRs principais.</li>
+                </ul>
+                <p class="pill-icon" style="margin-top: 0.5rem;">Definir o que não fazer é tão importante quanto definir o que fazer.</p>
+            </div>
+        </div>
+
+        <!-- Minha primeira hipótese -->
+        <div class="hipotese-card">
+            <i class="fas fa-flask" style="font-size: 1.5rem; color: #eab308;"></i>
+            <h3 style="margin: 0.5rem 0;">Minha primeira hipótese (piloto de 2 semanas)</h3>
+            <p><strong>Modelo para o time preencher:</strong><br>
+            “Acreditamos que <u>[fazer X]</u> vai gerar <u>[resultado Y]</u> em <u>[prazo Z]</u>. Vamos testar com <u>[um piloto pequeno]</u> e medir <u>[métrica simples]</u>.”</p>
+            <p><strong>Exemplo real:</strong> “Acreditamos que automatizar o lembrete de aprovação de férias vai reduzir o tempo de resposta de RH de 2 dias para 4 horas. Vamos testar com um setor (20 pessoas) e medir o tempo médio.”</p>
+            <p class="pill-icon"><i class="fas fa-stopwatch"></i> Toda semana, reserve 15 min na quinta para revisar sua hipótese ativa.</p>
+        </div>
+
+        <!-- Checklist mensal de revisão - com mesmo estilo de details óbvio -->
+        <details>
+            <summary>
+                <span><i class="fas fa-check-double"></i> Checklist mensal de revisão</span>
+                <span class="click-hint"><i class="fas fa-hand-pointer"></i> clique para expandir</span>
+            </summary>
+            <ul class="list-dots" style="margin-top: 0.5rem;">
+                <li>Revise o progresso dos OKRs (atualizou 50% ou mais?)</li>
+                <li>O mapa estratégico ainda reflete a realidade? Ajuste se necessário.</li>
+                <li>Houve comunicação das vitórias e aprendizados para o time e liderança?</li>
+                <li>Os facilitadores (recursos) estão disponíveis? Precisa de novos?</li>
+                <li>Identificou ao menos uma melhoria incremental no último mês?</li>
+                <li>O time seguiu o ritual semanal? Se não, por quê?</li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- CASE PRÁTICO -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-briefcase"></i> Case Prático: aplicação da pirâmide</div>
+        <div class="quote">
+            <i class="fas fa-user-tie"></i> <strong>Mariana, Gerente de Experiência do Cliente (empresa de médio porte)</strong><br>
+            Com um time de 8 pessoas, ela definiu: <br>
+             <strong>Propósito:</strong> "Reduzir a frustração do cliente interno com processos."<br>
+             <strong>Estratégia:</strong> Direcionador = automação de tickets repetitivos; Facilitador = ferramenta low-code gratuita.<br>
+             <strong>Execução:</strong> OKR trimestral "Aumentar resolução no primeiro contato de 60% para 80%".<br>
+             <strong>Resultado:</strong> Em 90 dias, alcançou 78%, reduziu custo operacional em 12% e o time foi reconhecido pela diretoria.
+        </div>
+        <p><strong>Lição:</strong> O intraempreendedor não espera recursos perfeitos – começa com o que tem e constrói legitimidade pelos resultados.</p>
+    </div>
+
+    <!-- ARMADILHAS COMUNS -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-exclamation-triangle"></i> Armadilhas Comuns e Como Evitá-las</div>
+        <div class="grid-cards">
+            <div class="card-framework"><strong>Armadilha 1:</strong> “Achar que OKR é lista de tarefas, não resultados.”<br><strong>Como evitar:</strong> Revise semanalmente se os Key Results ainda são mensuráveis e aspiracionais. Se virou “fazer X reunião”, não é OKR.</div>
+            <div class="card-framework"><strong>Armadilha 2:</strong> “Não revisar os OKRs semanalmente.”<br><strong>Como evitar:</strong> Coloque 15 min na agenda de segunda-feira – ritual obrigatório.</div>
+            <div class="card-framework"><strong>Armadilha 3:</strong> “A liderança não apoia.”<br><strong>Como evitar:</strong> faça um pitch de 1 minuto (ex: “Com 2h por semana, podemos economizar R$ X em 90 dias”).</div>
+            <div class="card-framework"><strong>Armadilha 4:</strong> “O time já está sobrecarregado.”<br><strong>Como evitar:</strong> substitua uma reunião existente pelo rito de revisão do framework (ex: reunião de status de 1h → 30min de OKR).</div>
+            <div class="card-framework"><strong>Armadilha 5:</strong> “Não temos dados.”<br><strong>Como evitar:</strong> use estimativas conservadoras e meça na primeira quinzena. Aprender com dados imperfeitos é melhor que não aprender.</div>
+        </div>
+    </div>
+
+    <!-- ROTEIRO DE AÇÃO CONDICIONAL -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-clipboard-list"></i> Roteiro de Ação (com blocos condicionais)</div>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+            <div><span class="badge-pilar">Semana 1</span> Diagnóstico de propósito (30min). <strong>Se houver resistência</strong>, faça individualmente e depois consolide.</div>
+            <div><span class="badge-pilar">Semana 2-3</span> Defina intenção estratégica + direcionadores. <strong>Se não conseguir dados</strong>, use estimativas conservadoras e meça na primeira quinzena.</div>
+            <div><span class="badge-pilar">Mês 1</span> Crie 2 OKRs e iniciativas; desenhe mapa estratégico simplificado. <strong>Defina também o Anti-OKR</strong> (o que não será feito).</div>
+            <div><span class="badge-pilar">Semanal</span> Rituais de 15 min (segunda e quinta). <strong>Se time remoto</strong>, use mural virtual com os OKRs em destaque.</div>
+            <div><span class="badge-pilar">Mensal</span> Reunião de 30 min: revisão de OKRs, ajuste de rota. Revise também o mapa causal.</div>
+            <div><span class="badge-pilar">Trimestral</span> Comunique resultados, celebre aprendizados. <strong>Se o resultado foi ruim</strong>, comemore o aprendizado (ex: “descobrimos que nossa suposição estava errada – agora corrigimos”).</div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO FINAL -->
+    <div class="section" style="background: linear-gradient(105deg, #fff 0%, #f4faff 100%); text-align: center;">
+        <i class="fas fa-gem" style="font-size: 2rem; color: var(--primary);"></i>
+        <h3 style="margin: 0.5rem 0;">Pronto para agir?</h3>
+        <p>Escolha um único OKR ainda esta semana e aplique o framework. Defina sua primeira hipótese e o ritual semanal. Acompanhe os resultados e ajuste o roteiro conforme sua realidade.</p>
+        <p style="margin-top: 1rem;">Da estratégia à operação, conectando, processos, pessoas e resultados.</p>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© <span id="currentYear"></span> Silvanio Gois - Todos os direitos reservados. 
+            <a href="https://www.silvaniogois.com.br/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> ir ao Site</a>
+        </p>
+        <p style="margin-top: 8px;">Framework com Pirâmide Estratégica, OKRs por área, Mapa Estratégico visível, ritual semanal e seção de hipóteses – ideal para líderes intraempreendedores.</p>
+    </div>
+</footer>
+
+<button class="btn-top" id="backToTopBtn" aria-label="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
+<script>
+    document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+    const backBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) backBtn.classList.add('show');
+        else backBtn.classList.remove('show');
+    });
+    backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
